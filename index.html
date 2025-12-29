@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Nossa História - Letícia & João</title>
+<style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f9f9f9;
+        margin: 0;
+        padding: 20px;
+        color: #333;
+    }
+    header {
+        text-align: center;
+        padding-bottom: 20px;
+        border-bottom: 2px solid #ddd;
+    }
+    header h1 {
+        font-size: 2.5rem;
+        margin-bottom: 5px;
+        color: #d6336c;
+    }
+    header p {
+        font-size: 1.2rem;
+        color: #555;
+    }
+    main {
+        max-width: 700px;
+        margin: 30px auto;
+        background-color: white;
+        border-radius: 8px;
+        padding: 25px;
+        box-shadow: 0 4px 15px rgba(214, 51, 108, 0.2);
+    }
+    img {
+        width: 100%;
+        max-width: 600px;
+        display: block;
+        margin: 0 auto 25px;
+        border-radius: 12px;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    }
+    section {
+        margin-bottom: 20px;
+    }
+    section h2 {
+        color: #d6336c;
+        margin-bottom: 10px;
+    }
+    #storyText {
+        font-size: 1.1rem;
+        line-height: 1.5;
+        white-space: pre-wrap;
+        min-height: 160px; /* espaço para texto */
+        color: #444;
+        padding: 10px 5px;
+        border-left: 3px solid #d6336c;
+        animation: blinkCaret 0.7s step-end infinite;
+        font-family: 'Courier New', Courier, monospace;
+    }
+    @keyframes blinkCaret {
+        from, to { border-color: transparent; }
+        50% { border-color: #d6336c; }
+    }
+    footer {
+        text-align: center;
+        padding: 15px;
+        font-style: italic;
+        color: #777;
+        margin-top: 40px;
+        border-top: 1px solid #ddd;
+    }
+</style>
+</head>
+<body>
+
+<header>
+    <h1>Letícia & João</h1>
+    <p>Nossa História</p>
+</header>
+
+<main>
+    <img src="https://i.imgur.com/jiZ68QM.jpg" alt="Letícia e João juntos" />
+    
+    <section>
+        <h2>História</h2>
+        <div id="storyText"></div>
+    </section>
+</main>
+
+<footer>
+    Feito com 💖 por Letícia para João
+</footer>
+
+<script>
+    const storyParagraphs = [
+        "Nos conhecemos no trabalho, mas nossa história começou quando fui fazer uma entrevista na Roboteasy. João, que adora estar por dentro de tudo, percebeu minha chegada. Ele contou que me achou bonita e ficou perguntando para a menina do RH quem eu era.",
+        "Quando entrei na empresa, fiz muitas amizades, mas não fiquei tão próxima do João no começo. Mesmo assim, seguimos no Instagram e ele me convidou para ir ao Banheira Bar e Burguês para a despedida do Jorge. Eu fui sem muita intenção, só para me enturmar.",
+        "A partir daí, dava para perceber que os dois tinham interesse um no outro. Teve até uma fofoca envolvendo o Jorge, que saiu da cidade, e, curiosa, mandei uma mensagem para o João para saber o que tinha acontecido. Depois disso, nunca paramos de conversar.",
+        "Comecei a sentir interesse por ele depois daquele dia e até comentei com um amigo próximo do João sobre isso. Foi tudo muito rápido e natural. E hoje estamos juntos, construindo essa linda história."
+    ];
+
+    let currentParagraph = 0;
+    let currentCharIndex = 0;
+    let isErasing = false;
+    const display = document.getElementById('storyText');
+
+    function typeWriter() {
+        if (currentParagraph < storyParagraphs.length) {
+            const text = storyParagraphs[currentParagraph];
+            if (!isErasing) {
+                if (currentCharIndex < text.length) {
+                    display.textContent += text.charAt(currentCharIndex);
+                    currentCharIndex++;
+                    setTimeout(typeWriter, 35);
+                } else {
+                    // finished typing paragraph, wait before erasing
+                    isErasing = true;
+                    setTimeout(typeWriter, 2000);
+                }
+            } else {
+                if (currentCharIndex > 0) {
+                    display.textContent = text.substring(0, currentCharIndex - 1);
+                    currentCharIndex--;
+                    setTimeout(typeWriter, 20);
+                } else {
+                    // finished erasing, go to next paragraph
+                    isErasing = false;
+                    currentParagraph++;
+                    setTimeout(typeWriter, 500);
+                }
+            }
+        } else {
+            // show final paragraph permanently without erasing
+            display.textContent = storyParagraphs[storyParagraphs.length -1];
+        }
+    }
+
+    typeWriter();
+</script>
+
+</body>
+</html>
