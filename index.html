@@ -6,147 +6,159 @@
 <title>Nossa História</title>
 
 <style>
-:root {
-  --rosa: #d6336c;
-  --rosa-claro: #f8d7e3;
-  --cinza: #555;
-}
-
 * {
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
 }
 
 body {
-  margin: 0;
   font-family: 'Segoe UI', sans-serif;
-  background: linear-gradient(180deg, #fff, #f9f1f4);
-  color: var(--cinza);
+  color: #fff;
   overflow-x: hidden;
+  background: #000;
 }
 
-header {
-  text-align: center;
-  padding: 60px 20px 40px;
-}
-
-header h1 {
-  color: var(--rosa);
-  font-size: 2.8rem;
-  margin: 0;
-}
-
-header p {
-  font-size: 1.1rem;
-  opacity: 0.7;
-}
-
-section {
+.scene {
+  position: relative;
   min-height: 100vh;
-  padding: 80px 20px;
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 60px 20px;
 }
 
-.card {
+.background {
+  position: absolute;
+  inset: 0;
+  background-image: url("foto.jpg");
+  background-size: cover;
+  background-position: center;
+  transform: scale(1.1);
+  transition: all 2s ease;
+  z-index: 1;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  z-index: 2;
+}
+
+.content {
+  position: relative;
+  z-index: 3;
   max-width: 600px;
-  background: white;
-  padding: 40px;
-  border-radius: 20px;
-  box-shadow: 0 20px 40px rgba(214, 51, 108, 0.15);
   text-align: center;
   opacity: 0;
   transform: translateY(40px);
-  transition: all 1s ease;
+  transition: all 1.5s ease;
 }
 
-.card.visible {
+.scene.visible .content {
   opacity: 1;
   transform: translateY(0);
 }
 
-.icon {
-  font-size: 3rem;
+.scene.visible .background {
+  transform: scale(1);
+}
+
+h2 {
+  font-size: 2.2rem;
   margin-bottom: 20px;
-  animation: float 3s ease-in-out infinite;
+  color: #ffd1e3;
 }
 
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
+p {
+  font-size: 1.15rem;
+  line-height: 1.7;
 }
 
-.card h2 {
-  color: var(--rosa);
-  margin-bottom: 15px;
+/* VARIAÇÕES DE CENÁRIO */
+
+.scene.start .background {
+  filter: blur(10px) brightness(0.7);
 }
 
-.card p {
-  font-size: 1.1rem;
-  line-height: 1.6;
+.scene.invite .background {
+  filter: blur(6px) brightness(0.85);
+}
+
+.scene.talk .background {
+  filter: blur(3px) brightness(1);
+}
+
+.scene.choice .background {
+  filter: blur(0px) brightness(1.05);
+  animation: breathe 6s ease-in-out infinite;
+}
+
+@keyframes breathe {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.03); }
 }
 
 footer {
+  padding: 40px;
   text-align: center;
-  padding: 40px 20px;
   font-style: italic;
-  opacity: 0.6;
+  color: #ccc;
 }
 </style>
 </head>
 
 <body>
 
-<header>
-  <h1>Letícia & João</h1>
-  <p>Uma história contada em momentos</p>
-</header>
-
-<section>
-  <div class="card">
-    <div class="icon">✨</div>
+<section class="scene start">
+  <div class="background"></div>
+  <div class="overlay"></div>
+  <div class="content">
     <h2>O começo</h2>
     <p>
-      Tudo começou de forma simples.  
-      Um novo lugar, novos caminhos…  
-      e aquela curiosidade silenciosa que antecede algo importante.
+      Um novo lugar.  
+      Um novo tempo.  
+      E aquela curiosidade silenciosa que antecede tudo o que importa.
     </p>
   </div>
 </section>
 
-<section>
-  <div class="card">
-    <div class="icon">🍻</div>
+<section class="scene invite">
+  <div class="background"></div>
+  <div class="overlay"></div>
+  <div class="content">
     <h2>O convite</h2>
     <p>
-      Um convite sem grandes expectativas.  
-      Só a vontade de estar ali.  
-      Às vezes, é assim que as coisas mudam.
+      Um convite simples.  
+      Sem grandes expectativas.  
+      Só a vontade de estar ali.
     </p>
   </div>
 </section>
 
-<section>
-  <div class="card">
-    <div class="icon">💬</div>
-    <h2>A conversa que não acabou</h2>
+<section class="scene talk">
+  <div class="background"></div>
+  <div class="overlay"></div>
+  <div class="content">
+    <h2>A conversa</h2>
     <p>
       Uma mensagem virou outra.  
       E outra.  
-      E, quando perceberam, o diálogo já não tinha ponto final.
+      Até que o silêncio deixou de existir.
     </p>
   </div>
 </section>
 
-<section>
-  <div class="card">
-    <div class="icon">❤️</div>
+<section class="scene choice">
+  <div class="background"></div>
+  <div class="overlay"></div>
+  <div class="content">
     <h2>A escolha</h2>
     <p>
       Não foi planejado.  
-      Não foi forçado.  
-      Foi natural.  
-      E hoje, essa história continua sendo escrita — juntos.
+      Foi sentido.  
+      E continua sendo, todos os dias.
     </p>
   </div>
 </section>
@@ -156,7 +168,7 @@ footer {
 </footer>
 
 <script>
-const cards = document.querySelectorAll('.card');
+const scenes = document.querySelectorAll('.scene');
 
 const observer = new IntersectionObserver(entries => {
   entries.forEach(entry => {
@@ -165,10 +177,10 @@ const observer = new IntersectionObserver(entries => {
     }
   });
 }, {
-  threshold: 0.3
+  threshold: 0.4
 });
 
-cards.forEach(card => observer.observe(card));
+scenes.forEach(scene => observer.observe(scene));
 </script>
 
 </body>
